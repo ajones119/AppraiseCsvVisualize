@@ -1,4 +1,4 @@
-import { Scatter } from 'react-chartjs-2';
+import { Scatter, Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -78,6 +78,13 @@ const ScatterChart = ({groupData, label}: ScatterChartProps) => {
           },
         },
       };
+
+      const a = <Line options={options}
+      data={chartData as any} />
+
+      if (false) {
+        return a;
+      }
 
     return (
         <Scatter
