@@ -87,10 +87,15 @@ const ScatterChart = ({groupData, label}: ScatterChartProps) => {
       }
 
     return (
+      <div>
+        <Line options={options}
+          data={chartData as any} />
+      
         <Scatter
             options={options}
             data={chartData as any}
         />
+        </div>
     );
 }
 
