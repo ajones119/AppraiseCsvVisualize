@@ -49,7 +49,7 @@ const Options = () => {
             <div>
                 <div className={css.toggle}>
                     <p>Light</p>
-                    <Toggle value={themeName === "Light"} onClick={() => setTheme(themeName === "Light" ? "Dark" : "Light")} />
+                    <Toggle value={themeName === "Light" || themeName === ""} onClick={() => setTheme(themeName === "Dark" ? "Light" : "Dark")} />
                     <p>Dark</p>
                 </div>
                 <h3>CSV Column Order</h3>
