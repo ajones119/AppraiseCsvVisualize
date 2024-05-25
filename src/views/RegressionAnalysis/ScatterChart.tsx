@@ -1,4 +1,4 @@
-import { Chart } from 'react-chartjs-2';
+import { Scatter } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -9,7 +9,6 @@ import {
     TimeScale,
     Title,
     ScatterController
-    Scatter
   } from 'chart.js';
 
 //import 'chartjs-adapter-date-fns';
@@ -81,8 +80,7 @@ const ScatterChart = ({groupData, label}: ScatterChartProps) => {
       };
 
     return (
-        <Chart
-            type="scatter"
+        <Scatter
             options={options}
             data={chartData as any}
         />
