@@ -20,7 +20,7 @@ export type GroupRegressionChartData = {
   data: {x: number, y: number}[],
   backgroundColor?: string,
   borderColor?: string,
-  type: string
+  type?: string
 };
 
 type ScatterChartProps = {
@@ -79,17 +79,10 @@ const ScatterChart = ({groupData, label}: ScatterChartProps) => {
         },
       };
 
-      const a = <Line options={options}
-      data={chartData as any} />
-
-      if (false) {
-        return a;
-      }
-
+      //try making all scatter?
     return (
       <div>
-        <Line options={options}
-          data={chartData as any} />
+        
       
         <Scatter
             options={options}
