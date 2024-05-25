@@ -4,8 +4,47 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 16px;
 
     .regressionCard {
-        width: 100%;
+        width: 80%;
+
+    }
+}
+
+.subData {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    text-decoration: underline;
+}
+
+.table {
+    width: 100%;
+    margin: 0 auto;
+    .tableRow {
+        background-color: var(--table-background-color);
+        border-style: solid;
+        border-width: 1px;
+        border-color: black;
+
+        &.secondary {
+            background-color: var(--table-background-secondary-color);
+        }
+
+        &.title {
+            background-color: var(--table-background-title-color);
+        }
+
+        .rowIndex:hover {
+            cursor: grab;
+        }
+        .rowIndex:active {
+        cursor: grabbing;
+        }
+
+        .tableCell {
+            padding: 0px 4px;
+        }
     }
 }

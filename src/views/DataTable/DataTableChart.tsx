@@ -21,10 +21,9 @@ ChartJS.register(
 );
 
 const rgbMap = [
-    'red',
-    'green',
-    'blue',
-    'red'
+    '#FF0000d0',
+    '#00FF00d0',
+    '#4169E1e0',
 ];
 
 const getDataSets = (columns: TableColumn[], key: keyof Omit<TableColumn, 'columnName' | 'lowOffset' | 'highOffset' | 'showPercentChange'>) => {

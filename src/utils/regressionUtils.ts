@@ -1,4 +1,4 @@
-import { linearRegression, linearRegressionLine, rSquared } from "simple-statistics";
+import { linearRegression, linearRegressionLine, rSquared, standardDeviation } from "simple-statistics";
 import { MLSDataEntry } from "./parseUtils";
 
 export type LinearRegressionData = {
@@ -11,10 +11,12 @@ export type LinearRegressionData = {
 
 export const getLinearRegression = (entries: MLSDataEntry[], xAxisKey: keyof MLSDataEntry = "closingDate" ,isXAxisDate = false): LinearRegressionData => {
     const filteredEntries = entries.filter(entry => entry.salePrice && entry[xAxisKey] !== undefined);
-    const values = filteredEntries.map(entry => [Number(isXAxisDate ? entry[xAxisKey].getTime() : entry[xAxisKey] || 0), Number(entry.salePrice)]).sort((a, b) => a[0] - b[0]);
+    const values = filteredEntries.map((entry) => [Number(isXAxisDate ? entry[xAxisKey].getTime() : entry[xAxisKey] || 0), Number(entry.salePrice)]).sort((a, b) => a[0] - b[0]);
     const regression = linearRegression(values);
     const line = linearRegressionLine(regression);
     const r2 = rSquared(values, line);
+    const stddev = standardDeviation(values.map(value => value[0]))
+    console.log("STD DEV", stddev)
     
 
     return {m: regression.m, b: regression.b, values: values, line, r2}
