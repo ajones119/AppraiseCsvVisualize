@@ -47,7 +47,7 @@ const ROWS: DataTableRow[] = [
     {id: "Year Built Mode",  metaKey: "Year Built", getter: (column) => <div>{column.yearBuilt.mode?.toFixed(0)}</div>},
 ]
 
-const CHARTS_CONFIG: {rowkey :keyof Omit<TableColumn, 'columnName' | 'lowOffset' | 'highOffset'>, title: string}[] = [
+const CHARTS_CONFIG: {rowkey :keyof Omit<TableColumn, 'columnName' | 'lowOffset' | 'highOffset' | 'showPercentChange'>, title: string}[] = [
     {rowkey: "salePrice", title: "Sale Price"},
     {rowkey: "pricePerSquareFoot", title: "Price Per Square Foot"},
     {rowkey: "squareFeet", title: "Sale Price"},

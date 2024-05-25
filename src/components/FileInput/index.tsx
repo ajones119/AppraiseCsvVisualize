@@ -7,7 +7,7 @@ import {
 } from 'react-papaparse';
 
 const GREY = '#CCC';
-const GREY_LIGHT = 'rgba(255, 255, 255, 0.4)';
+//const GREY_LIGHT = 'rgba(255, 255, 255, 0.4)';
 const DEFAULT_REMOVE_HOVER_COLOR = '#A01919';
 const REMOVE_HOVER_COLOR_LIGHT = lightenDarkenColor(
     DEFAULT_REMOVE_HOVER_COLOR,

@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import css from "./Input.module.scss"
+//import css from "./Input.module.scss"
 type InputProps<T> = {
     value?: T,
     onChange: (newValue: T) => void,

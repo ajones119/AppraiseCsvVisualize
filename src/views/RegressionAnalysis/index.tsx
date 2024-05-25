@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { MLSDataEntry } from "../../utils/parseUtils";
 import css from "./RegressionsAnalysis.module.scss"
 import { getLinearRegression } from "../../utils/regressionUtils";
