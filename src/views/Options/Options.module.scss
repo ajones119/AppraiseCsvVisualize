@@ -1,0 +1,21 @@
+.toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+
+.table {
+  margin: 0 auto;
+}
+
+.tableRow {
+  background-color: var(--table-background-secondary-color);
+  
+  .rowIndex:hover {
+    cursor: grab;
+  }
+  .rowIndex:active {
+    cursor: grabbing;
+  }
+}

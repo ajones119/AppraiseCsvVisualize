@@ -1,0 +1,35 @@
+
+.toggleButton {
+    position: relative;
+    background-color: green;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 100px;
+    width: 56px;
+    height: 28px;
+
+    transition: background-color 0.3s ease, border-color 0.2s ease;
+    cursor: pointer;
+    //box-shadow: 1px 1px 5px;
+
+    .thumb {
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        background-color: white;
+        transform: translateX(0);
+        transition: left 0.15s ease;
+        position: absolute;
+        left: 4px;
+        top: 50%;
+        transform: translateY(-52%);
+    }
+
+    &.toggled {
+        background-color: red;
+
+        .thumb {
+            left: calc(56px - 20px - 4px)
+        }
+    }
+}

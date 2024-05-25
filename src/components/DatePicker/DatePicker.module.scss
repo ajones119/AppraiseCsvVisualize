@@ -1,0 +1,20 @@
+
+.datePickerWrapper {
+  display: flex;
+  gap: 0px;
+  flex-direction: column;
+  align-content: flex-start;
+  justify-content: start;
+
+  .label {
+    text-align: start;
+    font-size: 12px;
+  }
+
+  .datePicker {
+    background-color: var(--background-color);
+    border-color: var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary-color);
+  }
+}

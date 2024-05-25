@@ -1,0 +1,14 @@
+.tabs {
+    margin-bottom: 24px;
+
+    .tabList {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .content {
+        margin: 16px auto;
+        
+    }
+}
