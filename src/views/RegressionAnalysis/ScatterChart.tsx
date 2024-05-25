@@ -7,13 +7,15 @@ import {
     Tooltip,
     Legend,
     TimeScale,
-    Title
+    Title,
+    ScatterController
+    Scatter
   } from 'chart.js';
 
-import 'chartjs-adapter-date-fns';
+//import 'chartjs-adapter-date-fns';
 import useTheme from '../../hooks/useTheme';
 
-ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ScatterController);
 export type GroupRegressionChartData = {
   label: string,
   data: {x: number, y: number}[],
