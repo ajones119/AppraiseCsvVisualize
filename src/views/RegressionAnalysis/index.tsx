@@ -39,8 +39,8 @@ const RegressionAnalysis = ({data}: RegressionAnalysisProps) => {
                 color: config.color,
                 label: config.label,
                 chartData: [
-                    { label: `${config.label} - scatter`, backgroundColor: config.color, data: regression.values.map(value => ({x: value[0], y: value[1]}))},
-                    { label: `${config.label} - line`, borderColor: config.color, data: [{x: regressionStart, y: regression.line(regressionStart)}, {x: regressionEnd, y: regression.line(regressionEnd)}]}
+                    {type: "scatter", label: `${config.label} - scatter`, backgroundColor: config.color, data: regression.values.map(value => ({x: value[0], y: value[1]}))},
+                    {type: "line", label: `${config.label} - line`, borderColor: config.color, data: [{x: regressionStart, y: regression.line(regressionStart)}, {x: regressionEnd, y: regression.line(regressionEnd)}]}
                 ],
                 occurranceMap: counts,
             };

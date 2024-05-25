@@ -8,7 +8,7 @@ import {
     Legend,
     TimeScale,
     Title,
-    ScatterController
+    ScatterController,
   } from 'chart.js';
 
 //import 'chartjs-adapter-date-fns';
