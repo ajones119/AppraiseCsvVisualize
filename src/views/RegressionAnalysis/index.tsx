@@ -3,6 +3,7 @@ import { MLSDataEntry } from "../../utils/parseUtils";
 import css from "./RegressionsAnalysis.module.scss"
 import { getLinearRegression } from "../../utils/regressionUtils";
 import ScatterChart from "./ScatterChart";
+import { zScore } from "simple-statistics";
 
 type RegressionAnalysisProps = {
     data: MLSDataEntry[],
@@ -56,7 +57,7 @@ const RegressionAnalysis = ({data}: RegressionAnalysisProps) => {
                             <h2>{group.label}</h2>
                             <div className={css.subData}>
                                 <div>R<sup>2</sup>: {group.regression.r2.toFixed(3)}</div>
-                                <div>M: {group.regression.m.toFixed(2)}</div>
+                                <div>Slope: {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(group.regression.m || 0)}</div>
                                 <div>B: {group.regression.b.toFixed(2)}</div>
                             </div>
                             { !group.hideValues && 
@@ -65,13 +66,14 @@ const RegressionAnalysis = ({data}: RegressionAnalysisProps) => {
                                     <th>Value</th>
                                     <th># of Occurrances</th>
                                     <th>Projection</th>
+                                    <th>zScore</th>
                                 </tr>
                                 {
                                     Object.keys(group.occurranceMap).map((key, index) => <tr className={`${css.tableRow} ${index%2 == 0 && css.secondary}`}>
                                         <td>{key}</td>
                                         <td>{group.occurranceMap[Number(key)]}</td>
                                         <td>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(group.regression.line(Number(key)))}</td>
-                                        
+                                        <td>{zScore(Number(key), group.regression.avg, group.regression.stddev).toFixed(2)}</td>
                                     </tr>)
                                 }
                             </table>

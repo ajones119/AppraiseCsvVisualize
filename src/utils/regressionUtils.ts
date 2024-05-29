@@ -1,4 +1,4 @@
-import { linearRegression, linearRegressionLine, rSquared, standardDeviation } from "simple-statistics";
+import { linearRegression, linearRegressionLine, mean, rSquared, standardDeviation } from "simple-statistics";
 import { MLSDataEntry } from "./parseUtils";
 
 export type LinearRegressionData = {
@@ -6,7 +6,9 @@ export type LinearRegressionData = {
     b: number,
     values: number[][],
     line: (x: number) => number,
-    r2: number
+    r2: number,
+    stddev: number,
+    avg: number
 }
 
 export const getLinearRegression = (entries: MLSDataEntry[], xAxisKey: keyof MLSDataEntry = "closingDate" ,isXAxisDate = false): LinearRegressionData => {
@@ -15,11 +17,11 @@ export const getLinearRegression = (entries: MLSDataEntry[], xAxisKey: keyof MLS
     const regression = linearRegression(values);
     const line = linearRegressionLine(regression);
     const r2 = rSquared(values, line);
-    const stddev = standardDeviation(values.map(value => value[0]))
-    console.log("STD DEV", stddev)
+    const stddev = standardDeviation(values.map(value => value[0]));
+    const avg = mean(values.map(value => value[0]));
     
 
-    return {m: regression.m, b: regression.b, values: values, line, r2}
+    return {m: regression.m, b: regression.b, values: values, line, r2, stddev, avg}
 }
 
 export type GroupFilter = {
