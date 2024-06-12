@@ -1,4 +1,4 @@
-import {mean as smean, median as smedian, mode as smode} from "simple-statistics";
+import {max, min, mean as smean, median as smedian, mode as smode} from "simple-statistics";
 import { MLSDataEntry } from "./parseUtils"
 
 export type NumericTableCellData = {
@@ -7,8 +7,8 @@ export type NumericTableCellData = {
     mean?: number,
     median?: number,
     mode?: number,
-    //min?: number,
-    //max?: number,
+    minimum?: number,
+    maximum?: number,
     //percentChange?: number
 }
 
@@ -112,8 +112,11 @@ export const calculateCell = (data: MLSDataEntry[], key: keyof MLSDataEntry, nam
     //const mode = calculateMode(values)
     const mode = smode(numberOfEntries > 1 ? values : [0])
 
+    const maximum = max(numberOfEntries > 1 ? values : [0]);
+    const minimum = min(numberOfEntries > 1 ? values : [0]);
 
-    return {mean, median, mode, numberOfEntries, name}
+
+    return {mean, median, mode, numberOfEntries, name, maximum, minimum}
 }
 
 export const START_DATE = 0;
