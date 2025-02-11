@@ -24,34 +24,42 @@ type DataTableProps = {
     columns: TableColumn[]
 }
 
+const getPercentChange = (current: number = 0, next: number = 1) => {
+    const change =  ((1 - (current/next)) * -100);
+    if (change === Infinity || isNaN(change) || (current === next)) {
+        return "0.00%";
+    }
+    return change > 0 ? `+${change.toFixed(2)}%` : `${change.toFixed(2)}%`;
+}
+
 const ROWS: DataTableRow[] = [
     {id: "Sale Price Average", metaKey: "Sale Price",
-        getter: (column, nextColumn) => <div>
-                {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.salePrice.mean || 0)} 
-                ({nextColumn?.salePrice.mean && column?.showPercentChange ? ((1 - ((column.salePrice.mean || 1)/(nextColumn?.salePrice.mean || 1))) * -100).toFixed(2) : `-`}%)
+        getter: (column, nextColumn) => <div style={{display: 'flex', gap: 4, flexDirection: "column"}}>
+                <div>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.salePrice.mean || 0)}</div>
+                <div>{nextColumn?.salePrice.mean && column?.showPercentChange && getPercentChange(column.salePrice.mean, nextColumn?.salePrice.mean)}</div>
             </div>
     },
-    {id: "Sale Price Median",  metaKey: "Sale Price", getter: (column, nextColumn) => <div>
-        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.salePrice.median || 0)}
-        ({nextColumn?.salePrice.median && column?.showPercentChange ? ((1 - ((column.salePrice.median || 1)/(nextColumn?.salePrice.median || 1))) * -100).toFixed(2) : `-`}%)
+    {id: "Sale Price Median",  metaKey: "Sale Price", getter: (column, nextColumn) => <div style={{display: 'flex', gap: 4, flexDirection: "column"}}>
+        <div>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.salePrice.median || 0)}</div>
+        <div>{nextColumn?.salePrice.median && column?.showPercentChange && getPercentChange(column.salePrice.median, nextColumn?.salePrice.median)}</div>
         </div>},
     {id: "Sale Price Mode",  metaKey: "Sale Price", getter: (column) => <div>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.salePrice.mode || 0)} ({column.salePrice.minimum?.toFixed(2)} / {column.salePrice.maximum?.toFixed(2)})</div>},
     {id: "Price Per Square Foot Average",  metaKey: "Price Per Square Foot", getter: (column, nextColumn) => <div>
-        {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.pricePerSquareFoot.mean || 0)}
-        ({nextColumn?.pricePerSquareFoot.mean && column?.showPercentChange ? ((1 - ((column.pricePerSquareFoot.mean || 1)/(nextColumn?.pricePerSquareFoot.mean || 1))) * -100).toFixed(2) : `-`}%)
+        <div>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.pricePerSquareFoot.mean || 0)}</div>
+        <div>{nextColumn?.pricePerSquareFoot.mean && column?.showPercentChange && getPercentChange(column.pricePerSquareFoot.mean, nextColumn?.pricePerSquareFoot.mean)}</div>
     </div>},
     {id: "Price Per Square Foot Median",  metaKey: "Price Per Square Foot", getter: (column) => <div>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.pricePerSquareFoot.median || 0)}</div>},
     {id: "Price Per Square Foot Mode",  metaKey: "Price Per Square Foot", getter: (column) => <div>{new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(column.pricePerSquareFoot.mode || 0)} ({column.pricePerSquareFoot.minimum?.toFixed(2)} / {column.pricePerSquareFoot.maximum?.toFixed(2)})</div>},
     {id: "Square Feet Average",  metaKey: "Square Feet", getter: (column, nextColumn) => <div>
-        {column.squareFeet.mean?.toFixed(2)}
-        ({nextColumn?.squareFeet.mean && column?.showPercentChange ? ((1 - ((column.squareFeet.mean || 1)/(nextColumn?.squareFeet.mean || 1))) * -100).toFixed(2) : `-`}%)
+        <div>{column.squareFeet.mean?.toFixed(1)}</div>
+        <div>{nextColumn?.squareFeet.mean && column?.showPercentChange && getPercentChange(column.squareFeet.mean, nextColumn?.squareFeet.mean)}</div>
         </div>},
     {id: "Square Feet Median",  metaKey: "Square Feet", getter: (column, nextColumn) => <div>
-        {column.squareFeet.median?.toFixed(2)}
-        ({nextColumn?.squareFeet.median && column?.showPercentChange ? ((1 - ((column.squareFeet.median || 1)/(nextColumn?.squareFeet.median || 1))) * -100).toFixed(2) : `-`}%)
+        <div>{column.squareFeet.median?.toFixed(2)}</div>
+        <div>{nextColumn?.squareFeet.median && column?.showPercentChange && getPercentChange(column.squareFeet.median, nextColumn?.squareFeet.median)}</div>
 
         </div>},
-    {id: "Square Feet Mode",  metaKey: "Square Feet", getter: (column) => <div>{column.squareFeet.mode?.toFixed(2)} ({column.squareFeet.minimum?.toFixed(2)} / {column.squareFeet.maximum?.toFixed(2)})</div>},
+    {id: "Square Feet Mode",  metaKey: "Square Feet", getter: (column) => <div>{column.squareFeet.mode?.toFixed(0)} ({column.squareFeet.minimum?.toFixed(0)} / {column.squareFeet.maximum?.toFixed(0)})</div>},
     {id: "Year Built Average",  metaKey: "Year Built", getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)}</div>},
     {id: "Year Built Median",  metaKey: "Year Built", getter: (column) => <div>{column.yearBuilt.median?.toFixed(0)}</div>},
     {id: "Year Built Mode",  metaKey: "Year Built", getter: (column) => <div>{column.yearBuilt.mode?.toFixed(0)}</div>},
