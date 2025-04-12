@@ -1,89 +1,96 @@
-import { Scatter } from 'react-chartjs-2';
+import { Scatter } from "react-chartjs-2";
 import {
-    Chart as ChartJS,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-    TimeScale,
-    Title,
-    ScatterController,
-  } from 'chart.js';
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Tooltip,
+  Legend,
+  TimeScale,
+  Title,
+  ScatterController,
+} from "chart.js";
 
 //import 'chartjs-adapter-date-fns';
-import useTheme from '../../hooks/useTheme';
+import useTheme from "../../hooks/useTheme";
 
-ChartJS.register(TimeScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ScatterController);
+ChartJS.register(
+  TimeScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+  ScatterController,
+);
 export type GroupRegressionChartData = {
-  label: string,
-  data: {x: number, y: number}[],
-  backgroundColor?: string,
-  borderColor?: string,
+  label: string;
+  data: { x: number; y: number }[];
+  backgroundColor?: string;
+  borderColor?: string;
 };
 
 type ScatterChartProps = {
-    groupData: GroupRegressionChartData[],
-    label: string
+  groupData: GroupRegressionChartData[];
+  label: string;
 };
 
-const ScatterChart = ({groupData, label}: ScatterChartProps) => {
-  const {theme} = useTheme();
-    const chartData = {
-        datasets: groupData
-    };
-    const options = {
-        scales: {
-          x: {
-            title: {
-              text: label,
-              display: true,
-            },
-            grid: {
-              color: theme.colors["--table-background-secondary-color"]
-            },
+const ScatterChart = ({ groupData, label }: ScatterChartProps) => {
+  const { theme } = useTheme();
+  const chartData = {
+    datasets: groupData,
+  };
+  const options = {
+    scales: {
+      x: {
+        title: {
+          text: label,
+          display: true,
+        },
+        grid: {
+          color: theme.colors["--table-background-secondary-color"],
+        },
 
-            ticks: {
-              precision: 0
+        ticks: {
+          precision: 0,
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Value",
+        },
+        grid: {
+          color: theme.colors["--table-background-secondary-color"],
+        },
+      },
+    },
+    plugins: {
+      legend: {
+        display: true,
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context: any) {
+            let label = context.dataset.label || "";
+            if (label) {
+              label += ": ";
             }
-          },
-          y: {
-            title: {
-              display: true,
-              text: 'Value',
-            },
-            grid: {
-              color: theme.colors["--table-background-secondary-color"]
-            },
+            if (context.parsed.y !== null) {
+              label += new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "USD",
+              }).format(context.parsed.y);
+            }
+            return label;
           },
         },
-        plugins: {
-          legend: {
-            display: true,
-          },
-          tooltip: {
-            callbacks: {
-              label: function (context: any) {
-                let label = context.dataset.label || '';
-                if (label) {
-                  label += ': ';
-                }
-                if (context.parsed.y !== null) {
-                  label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
-                }
-                return label;
-              },
-            },
-          },
-        },
-      };
+      },
+    },
+  };
 
-    return (
-        <Scatter
-            options={options}
-            data={chartData as any}
-        />
-    );
-}
+  return <Scatter options={options} data={chartData as any} />;
+};
 
-export default ScatterChart
+export default ScatterChart;

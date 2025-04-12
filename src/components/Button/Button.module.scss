@@ -1,17 +1,17 @@
 .button {
-    padding: 8px;
-    border-radius: 4px;
-    border-style: none;
-    cursor: pointer;
-    transition: all 0.2s;
+  padding: 8px;
+  border-radius: 4px;
+  border-style: none;
+  cursor: pointer;
+  transition: all 0.2s;
 
-    &:hover {
-        filter: brightness(90%);
-    }
+  &:hover {
+    filter: brightness(90%);
+  }
 
-    &:active {
-        filter: brightness(70%);
-        transform: translateY(1px);
-        box-shadow: 1px 1px 5px;
-    }
+  &:active {
+    filter: brightness(70%);
+    transform: translateY(1px);
+    box-shadow: 1px 1px 5px;
+  }
 }
