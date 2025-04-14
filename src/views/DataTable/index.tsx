@@ -114,12 +114,21 @@ const ROWS: DataTableRow[] = [
   {
     id: "Price Per Square Foot Median",
     metaKey: "Price Per Square Foot",
-    getter: (column) => (
-      <div>
+    getter: (column, nextColumn) => (
+      <div><div>
         {new Intl.NumberFormat("en-US", {
           style: "currency",
           currency: "USD",
         }).format(column.pricePerSquareFoot.median || 0)}
+        </div>
+        <div>
+          {nextColumn?.pricePerSquareFoot.median &&
+            column?.showPercentChange &&
+            getPercentChange(
+              column.pricePerSquareFoot.median,
+              nextColumn?.pricePerSquareFoot.median,
+            )}
+        </div>
       </div>
     ),
   },
@@ -270,7 +279,7 @@ const DataTable = ({ columns = [] }: DataTableProps) => {
 
   return (
     <div>
-      <div className={css.toggle}>
+      <div className={`no-print ${css.toggle}`}>
         <Button
           style={
             JSON.stringify(timeType) === JSON.stringify(MONTHLY)

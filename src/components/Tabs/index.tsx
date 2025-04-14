@@ -10,7 +10,7 @@ type TabsProps = {
 const Tabs = ({ activeTab, tabs, setActiveTab }: TabsProps) => {
   return (
     <div className={css.tabs}>
-      <div className={css.tabList}>
+      <div className={`no-print ${css.tabList}`}>
         {tabs.map((tab) => (
           <Button onClick={() => setActiveTab(tab.key)}>{tab.title}</Button>
         ))}
