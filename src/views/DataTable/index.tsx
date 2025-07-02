@@ -194,7 +194,7 @@ const ROWS: DataTableRow[] = [
   {
     id: "Year Built Average",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)}</div>,
+    getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)} ({column.yearBuilt.minimum}-{column.yearBuilt.maximum})</div>,
   },
   {
     id: "Year Built Median",
