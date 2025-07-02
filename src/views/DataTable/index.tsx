@@ -194,17 +194,22 @@ const ROWS: DataTableRow[] = [
   {
     id: "Year Built Average",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)} ({column.yearBuilt.minimum}-{column.yearBuilt.maximum})</div>,
+    getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)} ({(new Date().getFullYear() - (column.yearBuilt?.mean || 0)).toFixed(1)} years)</div>,
   },
   {
     id: "Year Built Median",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.median?.toFixed(0)}</div>,
+    getter: (column) => <div>{column.yearBuilt.median?.toFixed(0)} ({(new Date().getFullYear() - (column.yearBuilt?.median || 0)).toFixed(0)} years)</div>,
   },
   {
     id: "Year Built Mode",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.mode?.toFixed(0)}</div>,
+    getter: (column) => <div>{column.yearBuilt.mode?.toFixed(0)} ({(new Date().getFullYear() - (column.yearBuilt?.mode || 0)).toFixed(0)} years)</div>,
+  },
+   {
+    id: "Year Range",
+    metaKey: "Year Range",
+    getter: (column) => <div>({column.yearBuilt.minimum}-{column.yearBuilt.maximum}) ({(new Date().getFullYear() - (column.yearBuilt?.minimum || 0)).toFixed(0)} - {(new Date().getFullYear() - (column.yearBuilt?.maximum || 0)).toFixed(0)} years)</div>,
   },
   {
     id: "Total Entries",
