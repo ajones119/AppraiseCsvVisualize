@@ -23,6 +23,7 @@ import Button from "../../components/Button";
 
 type DataTableProps = {
   columns: TableColumn[];
+  effectiveDate: Date;
 };
 
 const getPercentChange = (current: number = 0, next: number = 1) => {
@@ -33,6 +34,25 @@ const getPercentChange = (current: number = 0, next: number = 1) => {
   return change > 0 ? `+${change.toFixed(2)}%` : `${change.toFixed(2)}%`;
 };
 
+const CHARTS_CONFIG: {
+  rowkey: keyof Omit<
+    TableColumn,
+    | "columnName"
+    | "lowOffset"
+    | "highOffset"
+    | "showPercentChange"
+    | "numberOfEntries"
+  >;
+  title: string;
+}[] = [
+  { rowkey: "salePrice", title: "Sale Price" },
+  { rowkey: "pricePerSquareFoot", title: "Price Per Square Foot" },
+  { rowkey: "squareFeet", title: "Sale Price" },
+  { rowkey: "yearBuilt", title: "Year Built" },
+];
+
+const DataTable = ({ columns = [], effectiveDate = new Date() }: DataTableProps) => {
+  
 const ROWS: DataTableRow[] = [
   {
     id: "Sale Price Average",
@@ -194,45 +214,28 @@ const ROWS: DataTableRow[] = [
   {
     id: "Year Built Average",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)} ({(new Date().getFullYear() - (column.yearBuilt?.mean || 0)).toFixed(1)} years)</div>,
+    getter: (column) => <div>{column.yearBuilt.mean?.toFixed(0)} ({(effectiveDate.getFullYear() - (column.yearBuilt?.mean || 0)).toFixed(1)} years)</div>,
   },
   {
     id: "Year Built Median",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.median?.toFixed(0)} ({(new Date().getFullYear() - (column.yearBuilt?.median || 0)).toFixed(0)} years)</div>,
+    getter: (column) => <div>{column.yearBuilt.median?.toFixed(0)} ({(effectiveDate.getFullYear() - (column.yearBuilt?.median || 0)).toFixed(0)} years)</div>,
   },
   {
     id: "Year Built Mode",
     metaKey: "Year Built",
-    getter: (column) => <div>{column.yearBuilt.mode?.toFixed(0)} ({(new Date().getFullYear() - (column.yearBuilt?.mode || 0)).toFixed(0)} years)</div>,
+    getter: (column) => <div>{column.yearBuilt.mode?.toFixed(0)} ({(effectiveDate.getFullYear() - (column.yearBuilt?.mode || 0)).toFixed(0)} years)</div>,
   },
    {
     id: "Year Range",
     metaKey: "Year Range",
-    getter: (column) => <div>({column.yearBuilt.minimum}-{column.yearBuilt.maximum}) ({(new Date().getFullYear() - (column.yearBuilt?.minimum || 0)).toFixed(0)} - {(new Date().getFullYear() - (column.yearBuilt?.maximum || 0)).toFixed(0)} years)</div>,
+    getter: (column) => <div>({column.yearBuilt.minimum}-{column.yearBuilt.maximum}) ({(effectiveDate.getFullYear() - (column.yearBuilt?.minimum || 0)).toFixed(0)} - {(effectiveDate.getFullYear() - (column.yearBuilt?.maximum || 0)).toFixed(0)} years)</div>,
   },
   {
     id: "Total Entries",
     metaKey: "Total Entries",
     getter: (column) => <div>{column.numberOfEntries}</div>,
   },
-];
-
-const CHARTS_CONFIG: {
-  rowkey: keyof Omit<
-    TableColumn,
-    | "columnName"
-    | "lowOffset"
-    | "highOffset"
-    | "showPercentChange"
-    | "numberOfEntries"
-  >;
-  title: string;
-}[] = [
-  { rowkey: "salePrice", title: "Sale Price" },
-  { rowkey: "pricePerSquareFoot", title: "Price Per Square Foot" },
-  { rowkey: "squareFeet", title: "Sale Price" },
-  { rowkey: "yearBuilt", title: "Year Built" },
 ];
 
 const ROW_MAP: Record<string, DataTableRow> = ROWS.reduce(
@@ -244,8 +247,6 @@ const ROW_MAP: Record<string, DataTableRow> = ROWS.reduce(
 );
 
 const DEFAULT_ROW_ORDER: string[] = ROWS.map((row) => row.id);
-
-const DataTable = ({ columns = [] }: DataTableProps) => {
   const [rows, setRows] = useLocalStorage<string[]>(
     "AppraiseCSVisualizeRowOrder",
     DEFAULT_ROW_ORDER,

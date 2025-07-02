@@ -85,6 +85,7 @@ function App() {
         yearBuilt,
         showPercentChange,
         numberOfEntries,
+
       });
     }
     return columns;
@@ -129,7 +130,7 @@ function App() {
                   {
                     key: "table",
                     title: <h3>Table</h3>,
-                    content: <DataTable columns={calculatedColums} />,
+                    content: <DataTable columns={calculatedColums} effectiveDate={date || new Date()} />,
                   },
                   {
                     key: "regression",
